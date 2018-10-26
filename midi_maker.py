@@ -10,7 +10,7 @@ test_data = {"Am": ("A", "C", "E"), "Bb": ("Bb", "D", "F"), "G": ("G", "B", "D")
 #Maps between the note name and the corresponding MIDI note value
 note_values = {"A": 57, "A#": 58, "Bb": 58, "B": 59, "C": 60, "C#": 61, "Db": 61, "D": 62, "D#": 63, "Eb": 63, "E": 64, "F": 65, "F#": 66, "Gb": 66, "G": 67, "G#": 68, "Ab": 68}
 
-# The number octaves to raise or lower the chord
+# The number of octaves to raise or lower the chord
 octave = 0
 
 track = 0
