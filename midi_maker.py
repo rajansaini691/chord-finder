@@ -26,8 +26,8 @@ for chord, notes in test_data.items():
     MyMIDI.addTempo(track, time, tempo)
 
     # Changes the instrument being played, stored as an integer. For example, 1 -> piano, 6 -> harpsichord
-    instrument = 6
-    MyMIDI.addProgramChange(0, 0, 0, 4);
+    instrument = 1
+    MyMIDI.addProgramChange(0, 0, 0, instrument);
 
     for note in notes:
         pitch = note_values[note] + 12 * octave
