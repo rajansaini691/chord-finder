@@ -1,2 +1,5 @@
 *.wav
+*.sf2
+*.SF2
 *.mid
+soundfonts/*

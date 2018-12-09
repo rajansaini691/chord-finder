@@ -7,12 +7,13 @@ import os
 # To be replaced with data from part 1. The chordname doubles as the file name, and it maps to a tuple containing the notes
 test_data = {"Am": ("A", "C", "E"), "Bb": ("Bb", "D", "F"), "G": ("G", "B", "D"), "F": ("F", "A", "C"), "Fm": ("F", "Ab", "C")}
 
+soundfont = 7
+
 #Maps between the note name and the corresponding MIDI note value
 note_values = {"A": 57, "A#": 58, "Bb": 58, "B": 59, "C": 60, "C#": 61, "Db": 61, "D": 62, "D#": 63, "Eb": 63, "E": 64, "F": 65, "F#": 66, "Gb": 66, "G": 67, "G#": 68, "Ab": 68}
 
 # The number of octaves to raise or lower the chord
 octave = 0
-
 track = 0
 channel = 0
 time = 0
@@ -37,8 +38,8 @@ for chord, notes in test_data.items():
     with open(chord + ".mid", "wb") as output_file:
         MyMIDI.writeFile(output_file)
 
-    # This part only works on a Linux system with timidity installed (should work on CSIL machines)
+    # This part only works on a Linux system with fluidsynth installed
     # It basically converts the MIDI file to a wav file
-    command = "timidity " + chord + ".mid -Ow -o " + chord + ".wav"
+    command = "fluidsynth -F" + chord + ".wav soundfonts/000" + str(soundfont) + ".sf2 " + chord + ".mid"
     os.system(command)
 
