@@ -1,0 +1,8 @@
+
+for x in {0001..0023}
+do
+	play $x/Am*;
+	play $x/F.wav;
+	play $x/C.wav;
+	play $x/G*;
+done
