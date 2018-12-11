@@ -5,7 +5,7 @@ from midiutil import MIDIFile
 import os
 
 # To be replaced with data from part 1. The chordname doubles as the file name, and it maps to a tuple containing the notes
-test_data = {"C": ("G", "C", "E"), "Am": ("A", "C", "E"), "Bb": ("Bb", "D", "F"), "G": ("G", "B", "D", "F"), "F": ("A", "C", "F"), "Fm": ("F", "Ab", "C")}
+test_data = {"C": ("G", "C", "E"), "Am": ("A", "C", "E"), "Bb": ("Bb", "D", "F"), "G": ("G", "B", "D"), "F": ("A", "C", "F"), "Fm": ("F", "Ab", "C")}
 
 #Maps between the note name and the corresponding MIDI note value
 note_values = {"A": 57, "A#": 58, "Bb": 58, "B": 59, "C": 60, "C#": 61, "Db": 61, "D": 62, "D#": 63, "Eb": 63, "E": 64, "F": 65, "F#": 66, "Gb": 66, "G": 67, "G#": 68, "Ab": 68}
@@ -59,13 +59,14 @@ for chord, notes in test_data.items():
 
 # Creates a directory for each soundfont and populates it with wav files
 for soundfont in range(1, 23):
-	os.system("mkdir " + str(soundfont))
+	filename = str(soundfont).zfill(4)
+	os.system("mkdir " + filename)
 
 	# Iterates through the test data and generates a MIDI file for each item
 	for chord in test_data.keys():
 		# This part only works on a Linux system with fluidsynth installed
 		extension = ".sf2 " if soundfont < 19 else ".SF2 "
-		command = "fluidsynth -F " + str(soundfont) + "/" + chord + ".wav soundfonts/" + str(soundfont).zfill(4) + extension + chord + ".mid"
+		command = "fluidsynth -F " + filename + "/" + chord + ".wav soundfonts/" + filename + extension + chord + ".mid"
 		os.system(command)
 
 
