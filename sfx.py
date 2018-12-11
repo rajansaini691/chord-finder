@@ -1,5 +1,19 @@
 import pysox
+import numpy as np
 from scikits.audiolab import wavread, wavwrite
+
+def lp_filter_helper(x, freq):
+	return np.exp(-19*(x-0.2)**2)
+
+lp_filter = np.vectorize(lp_filter_helper)
+
+# Adds noise to the file at the beginning
+data2, fs2, enc2 = wavread("G.wav")
+percent_noise = 0.05
+noise = lp_filter(np.random.randn(*data2.shape), -0.5)
+result = (3 - percent_noise) * data2 + percent_noise * noise
+
+wavwrite(result, "G.wav", 44100)
 
 # Takes in an input file
 infile = pysox.CSoxStream('G.wav')
@@ -15,7 +29,7 @@ chorus = pysox.CEffect("chorus", [b'0.7', b'0.9', b'55', b'0.4', b'0.25', b'2', 
 chain.add_effect(chorus)
 
 # Adds reverb to the file
-reverb = pysox.CEffect("reverb", [b'50'])
+reverb = pysox.CEffect("reverb", [b'100'])
 chain.add_effect(reverb)
 
 # Adds echo
@@ -32,10 +46,3 @@ chain.flow_effects()
 # Ends the program
 outfile.close()
 
-# Adds noise to the file
-data1, fs1, enc1 = wavread("noise.wav")
-data2, fs2, enc2 = wavread("G_Modified.wav")
-assert fs1 == fs2
-assert enc1 == enc2
-result = 0.95 * data2 + 0.05 * data1
-wavwrite(result, "G_Modified.wav", 44100)
